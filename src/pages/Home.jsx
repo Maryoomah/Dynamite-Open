@@ -45,13 +45,13 @@ function Home() {
     <main>
       <section
   data-aos="fade-up"
-  className="relative py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-200 overflow-hidden"
+  className="relative py-16 sm:py-20 lg:py-24 bg-linear-to-br from-amber-100 via-yellow-100 to-amber-200 overflow-hidden"
 >
   {/* Decorative background blur */}
   <div className="absolute -top-20 -left-20 w-56 h-56 sm:w-72 sm:h-72 bg-green-300/30 rounded-full blur-3xl"></div>
   <div className="absolute -bottom-10 -right-10 w-72 h-72 sm:w-96 sm:h-96 bg-yellow-400/30 rounded-full blur-3xl"></div>
 
-  <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+  <div className="relative w-full px-4 sm:px-6 lg:max-w-6xl lg:mx-auto">
     <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
       {/* LEFT SIDE */}
       <div className="text-center md:text-left">
@@ -130,7 +130,7 @@ function Home() {
 
       {/* Tournament Breakdown */}
       <section className="py-16 bg-green-700" id="tournament-breakdown">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-amber-50">
             Tournament Breakdown
           </h2>

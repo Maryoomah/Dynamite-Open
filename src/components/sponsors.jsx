@@ -9,7 +9,7 @@ export default function Sponsors() {
 
   return (
     <section className="py-16 bg-green-50">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6 text-center">
 
         <h2 className="text-3xl font-bold text-green-900">
           Our Sponsors & Partners

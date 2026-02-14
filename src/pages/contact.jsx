@@ -33,7 +33,7 @@ function Contact() {
 
       {/* CONTACT CONTENT */}
       <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6 grid md:grid-cols-2 gap-12">
           {/* LEFT SIDE INFO */}
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-green-900">Get In Touch</h2>

@@ -50,7 +50,7 @@ function StatCard({ icon: Icon, value, suffix = "", label, delay = 0 }) {
 export default function Metrics() {
   return (
     <section className="py-16 sm:py-20 ">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}

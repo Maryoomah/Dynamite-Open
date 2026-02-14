@@ -6,7 +6,7 @@ function Navbar() {
 
   return (
     <nav className="bg-white shadow-md">
-      <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+      <div className="flex justify-between items-center p-4">
 
         {/* Logo */}
         <img
