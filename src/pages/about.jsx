@@ -5,7 +5,7 @@ import Footer from "../components/footer";
 function About() {
   return (
     <main>
-      <section className="py-16 bg-green-50">
+      <section className="py-16 sm:py-20 bg-green-50" data-aos="fade-up" >
         <div className="mt-5">
           <h1 className="uppercase font-extrabold text-4xl md:text-6xl text-green-800">
             About Dynamite  
