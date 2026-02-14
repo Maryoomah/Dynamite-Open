@@ -1,74 +1,73 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-export default function CountdownTimer () {
-    const targetDate = new Date("April 18,2026 00:00:00").getTime();
-    const calculateTimeLeft = () => {
-        const present = new Date().getTime();
-        const difference = targetDate - present;
+export default function CountdownTimer() {
+  const targetDate = useMemo(
+    () => new Date("April 18, 2026 00:00:00").getTime(),
+    []
+  );
 
-        if (difference <= 0) {
-            return null;
-        }
-        return {
-            days: Math.floor(difference/ (1000*60*60*24)),
-        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-      minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-      seconds: Math.floor((difference % (1000 * 60)) / 1000),
+  const calculateTimeLeft = () => {
+    const now = Date.now();
+    const diff = targetDate - now;
 
-        };
+    if (diff <= 0) return null;
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((diff % (1000 * 60)) / 1000),
     };
+  };
 
-      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  // Update the timer every second
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
   useEffect(() => {
     const timer = setInterval(() => {
-      const updatedTime = calculateTimeLeft();
-      setTimeLeft(updatedTime);
-
-      if (!updatedTime) {
-        clearInterval(timer); // Stop the countdown when time is up
-      }
+      const updated = calculateTimeLeft();
+      setTimeLeft(updated);
+      if (!updated) clearInterval(timer);
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup on component unmount
-  }, []);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
-  // Display if countdown is finished
   if (!timeLeft) {
-    return <p>Game On</p>;
+    return (
+      <p className="text-center font-semibold text-green-900">
+        Game on 🎉
+      </p>
+    );
   }
+
+  const blocks = [
+    { label: "Days", value: timeLeft.days },
+    { label: "Hours", value: timeLeft.hours },
+    { label: "Mins", value: timeLeft.minutes },
+    { label: "Secs", value: timeLeft.seconds },
+  ];
+
   return (
-  <section className="py-12 bg-green-900 text-white">
-    <div className="max-w-5xl mx-auto px-6 text-center">
+    <div className="space-y-3">
+      <p className="text-sm font-semibold text-green-900/80 text-center sm:text-left">
+        Countdown
+      </p>
 
-      <h3 className="text-3xl font-extrabold text-yellow-400 mb-8">
-        Countdown to Dynamite Open
-      </h3>
-
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-
-        {[
-          { label: "Days", value: timeLeft.days },
-          { label: "Hours", value: timeLeft.hours },
-          { label: "Mins", value: timeLeft.minutes },
-          { label: "Secs", value: timeLeft.seconds },
-        ].map((item) => (
+      <div className="grid grid-cols-4 gap-2 sm:gap-3">
+        {blocks.map((b) => (
           <div
-            key={item.label}
-            className="bg-white/10 backdrop-blur-md rounded-2xl py-6 shadow-lg border border-white/20"
+            key={b.label}
+            className="rounded-2xl border border-green-100 bg-white/60 backdrop-blur px-2 py-3 sm:px-3 sm:py-4 text-center shadow-sm"
           >
-            <p className="text-4xl font-bold text-yellow-400">
-              {item.value.toString().padStart(2, "0")}
+            <p className="text-lg sm:text-2xl font-extrabold text-green-900 tabular-nums">
+              {String(b.value).padStart(2, "0")}
             </p>
-            <p className="mt-2 text-sm uppercase tracking-widest text-white/70">
-              {item.label}
+            <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-wider text-green-900/60">
+              {b.label}
             </p>
           </div>
         ))}
-
       </div>
     </div>
-  </section>
-);
-
+  );
 }

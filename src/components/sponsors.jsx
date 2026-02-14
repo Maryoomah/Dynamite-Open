@@ -1,32 +1,37 @@
 export default function Sponsors() {
   const sponsors = [
-    "/images/sponsor1.png",
-    "/images/sponsor2.png",
-    "/images/sponsor3.png",
-    "/images/sponsor4.png",
-    "/images/sponsor5.png",
+    "images/logo.png",
+    "images/logo.png",
+    "images/logo.png",
+    "images/logo.png",
+    "images/logo.png",
   ];
 
   return (
-    <section className="py-16 bg-green-50">
-      <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6 text-center">
+    <section className="bg-green-50 py-12 sm:py-16 lg:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
-        <h2 className="text-3xl font-bold text-green-900">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-900">
           Our Sponsors & Partners
         </h2>
 
-    
+        <p className="mt-3 text-green-900/70 max-w-2xl mx-auto">
+          Proudly supported by organizations that believe in excellence,
+          competition, and community.
+        </p>
 
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-10 items-center">
           {sponsors.map((logo, i) => (
-            <img
-              key={i}
-              src={logo}
-              alt="Sponsor logo"
-              className="mx-auto h-12 object-contain grayscale hover:grayscale-0 transition"
-            />
+            <div key={i} className="flex justify-center">
+              <img
+                src={logo}
+                alt="Sponsor logo"
+                className="h-12 sm:h-14 lg:h-16 object-contain grayscale opacity-80 hover:opacity-100 hover:grayscale-0 transition duration-300"
+              />
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );
