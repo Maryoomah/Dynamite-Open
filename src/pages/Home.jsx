@@ -118,7 +118,7 @@ function Home() {
               Register Now
             </button>
 
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:flex-row">
               <Button text="View Participants" secondary />
             </div>
           </div>
