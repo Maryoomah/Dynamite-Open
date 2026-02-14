@@ -43,91 +43,88 @@ const categories = [
 function Home() {
   return (
     <main>
-     <section
-  data-aos="fade-up"
-  className="relative bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-200 py-12 sm:py-16 lg:py-24 overflow-hidden"
->
-  {/* Decorative background blur */}
-  <div className="absolute -top-20 -left-20 h-56 w-56 sm:h-72 sm:w-72 rounded-full bg-green-300/30 blur-3xl" />
-  <div className="absolute -bottom-10 -right-10 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-yellow-400/30 blur-3xl" />
+      <section
+        data-aos="fade-up"
+        className="relative bg-linear-to-br from-amber-100 via-yellow-100 to-amber-200 py-12 sm:py-16 lg:py-24 overflow-hidden"
+      >
+        {/* Decorative background blur */}
+        <div className="absolute -top-20 -left-20 h-56 w-56 sm:h-72 sm:w-72 rounded-full bg-green-300/30 blur-3xl" />
+        <div className="absolute -bottom-10 -right-10 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-yellow-400/30 blur-3xl" />
 
-  <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-      {/* LEFT */}
-      <div className="text-center md:text-left space-y-6 sm:space-y-7">
-        <p className="inline-flex text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-green-800 bg-white/90 px-4 py-1.5 rounded-full shadow-sm">
-          Open Scrabble Tournament
-        </p>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+            {/* LEFT */}
+            <div className="text-center md:text-left space-y-6 sm:space-y-7">
+              <p className="inline-flex text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-green-800 bg-white/90 px-4 py-1.5 rounded-full shadow-sm">
+                Open Scrabble Tournament
+              </p>
 
-        {/* Title */}
-        <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-5 items-center">
-          <h1 className="uppercase font-extrabold text-3xl sm:text-5xl md:text-6xl text-green-900 leading-tight tracking-tight">
-            Dynamite
-          </h1>
+              {/* Title */}
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-5 items-center">
+                <h1 className="uppercase font-extrabold text-3xl sm:text-5xl md:text-6xl text-green-900 leading-tight tracking-tight">
+                  Dynamite
+                </h1>
 
-          <div className="leading-none mt-2 sm:mt-0 text-center sm:text-left">
-            <p className="uppercase font-extrabold text-2xl sm:text-4xl md:text-5xl text-yellow-500">
-              Open
-            </p>
-            <p className="uppercase font-extrabold text-2xl sm:text-4xl md:text-5xl text-yellow-500">
-              5.0
-            </p>
-          </div>
-        </div>
+                <div className="leading-none mt-2 sm:mt-0 text-center sm:text-left">
+                  <p className="uppercase font-extrabold text-2xl sm:text-4xl md:text-5xl text-yellow-500">
+                    Open
+                  </p>
+                  <p className="uppercase font-extrabold text-2xl sm:text-4xl md:text-5xl text-yellow-500">
+                    5.0
+                  </p>
+                </div>
+              </div>
 
-        <p className="text-gray-700 text-base sm:text-lg max-w-md mx-auto md:mx-0">
-          Compete with top players across Nigeria in an exciting multi-division
-          Scrabble championship.
-        </p>
+              <p className="text-gray-700 text-base sm:text-lg max-w-md mx-auto md:mx-0">
+                Compete with top players across Nigeria in an exciting
+                multi-division Scrabble championship.
+              </p>
 
-        {/* Prize Highlight */}
-        <div className="inline-flex items-center gap-3 bg-green-900 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl shadow-xl transition md:hover:scale-105">
-          <FaTrophy className="text-yellow-400 text-xl sm:text-2xl" />
-          <span className="text-lg sm:text-2xl font-bold">
-            ₦1,000,000 Prize Pool
-          </span>
-        </div>
-      </div>
+              {/* Prize Highlight */}
+              <div className="inline-flex items-center gap-3 bg-green-900 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl shadow-xl transition md:hover:scale-105">
+                <FaTrophy className="text-yellow-400 text-xl sm:text-2xl" />
+                <span className="text-lg sm:text-2xl font-bold">
+                  ₦1,000,000 Prize Pool
+                </span>
+              </div>
+            </div>
 
-      {/* RIGHT CARD */}
-      <div className="w-full max-w-md mx-auto md:mx-0 md:justify-self-end">
-        <div className="bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl p-5 sm:p-7 border border-white/40 space-y-5 sm:space-y-6">
-          <p className="flex items-center gap-3 text-gray-800 font-medium">
-            <FaCalendar className="text-green-700" />
-            16–18th of April, 2026
-          </p>
+            {/* RIGHT CARD */}
+            <div className="w-full max-w-md mx-auto md:mx-0 md:justify-self-end">
+              <div className="bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl p-5 sm:p-7 border border-white/40 space-y-5 sm:space-y-6">
+                <p className="flex items-center gap-3 text-gray-800 font-medium">
+                  <FaCalendar className="text-green-700" />
+                  16–18th of April, 2026
+                </p>
 
-          <p className="flex items-center gap-3 text-gray-800 font-medium">
-            <FaLocationArrow className="text-green-700" />
-            Lagos, Nigeria
-          </p>
+                <p className="flex items-center gap-3 text-gray-800 font-medium">
+                  <FaLocationArrow className="text-green-700" />
+                  Lagos, Nigeria
+                </p>
 
-          <CountdownTimer />
+                <CountdownTimer />
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-1">
-            <button
-              className="w-full sm:w-auto bg-green-800 text-yellow-400 font-bold hover:bg-green-600 hover:text-white px-6 py-3 text-base sm:text-lg rounded-xl"
-              onClick={() =>
-                document
-                  .getElementById("tournament-breakdown")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              type="button"
-            >
-              Register Now
-            </button>
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-1">
+                  <button
+                    className="w-full sm:w-auto bg-green-800 text-yellow-400 font-bold hover:bg-green-600 hover:text-white px-6 py-3 text-base sm:text-lg rounded-xl"
+                    onClick={() =>
+                      document
+                        .getElementById("tournament-breakdown")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    type="button"
+                  >
+                    Register Now
+                  </button>
 
-            <div className="w-full sm:w-auto">
-              <Button text="View Participants" secondary />
+                  <Button text="View Participants" secondary />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Tournament Breakdown */}
       <section className="py-16 bg-green-700" id="tournament-breakdown">

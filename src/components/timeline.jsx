@@ -2,35 +2,15 @@ import { motion } from "framer-motion";
 import { FaFlagCheckered, FaUsers, FaSchool, FaTrophy } from "react-icons/fa";
 
 const items = [
-  {
-    year: "2022",
-    title: "The First Spark",
-    text: "Dynamite Open launched its first Scrabble tournament with a focus on fair play and community.",
-    icon: FaFlagCheckered,
-  },
-  {
-    year: "2023",
-    title: "Growth & Community",
-    text: "Participation grew as more players joined across categories and the event gained recognition.",
-    icon: FaUsers,
-  },
-  {
-    year: "2024",
-    title: "Schools & Inclusion",
-    text: "Student and school-focused activities were introduced to support youth involvement and inclusion.",
-    icon: FaSchool,
-  },
-  {
-    year: "2025",
-    title: "Bigger Wins",
-    text: "Prizes and partnerships expanded, delivering a stronger tournament experience for everyone.",
-    icon: FaTrophy,
-  },
+  { year: "2022", title: "The First Spark", text: "Dynamite Open launched its first Scrabble tournament with a focus on fair play and community.", icon: FaFlagCheckered },
+  { year: "2023", title: "Growth & Community", text: "Participation grew as more players joined across categories and the event gained recognition.", icon: FaUsers },
+  { year: "2024", title: "Schools & Inclusion", text: "Student and school-focused activities were introduced to support youth involvement and inclusion.", icon: FaSchool },
+  { year: "2025", title: "Bigger Wins", text: "Prizes and partnerships expanded, delivering a stronger tournament experience for everyone.", icon: FaTrophy },
 ];
 
 export default function Timeline() {
   return (
-    <section className="bg-green-800 py-12 sm:py-16 lg:py-20">
+    <div className="py-12 sm:py-16 lg:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -47,7 +27,7 @@ export default function Timeline() {
           </p>
         </motion.div>
 
-        {/* MOBILE: vertical timeline (default) */}
+        {/* MOBILE */}
         <div className="mt-10 sm:mt-12 space-y-8 md:hidden">
           {items.map((item, idx) => {
             const Icon = item.icon;
@@ -57,29 +37,18 @@ export default function Timeline() {
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.35 }}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeOut",
-                  delay: idx * 0.05,
-                }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: idx * 0.05 }}
                 className="relative pl-12"
               >
-                {/* vertical line */}
                 <div className="absolute left-5 top-0 bottom-0 w-px bg-green-100/80" />
-
-                {/* dot */}
                 <div className="absolute left-[14px] top-2 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
 
-                {/* icon bubble */}
                 <div className="absolute left-0 top-9 h-10 w-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center">
                   <Icon className="text-green-800" />
                 </div>
 
-                {/* card */}
                 <div className="rounded-2xl border border-green-100 bg-white p-5 sm:p-6 shadow-sm">
-                  <p className="text-sm font-bold text-green-800">
-                    {item.year}
-                  </p>
+                  <p className="text-sm font-bold text-green-800">{item.year}</p>
                   <h3 className="mt-1 text-lg sm:text-xl font-bold text-green-900">
                     {item.title}
                   </h3>
@@ -92,10 +61,9 @@ export default function Timeline() {
           })}
         </div>
 
-        {/* TABLET+ DESKTOP: horizontal timeline */}
+        {/* TABLET+ */}
         <div className="mt-12 hidden md:block">
           <div className="relative">
-            {/* top line */}
             <div className="absolute left-0 right-0 top-7 h-px bg-green-100/80" />
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -107,26 +75,17 @@ export default function Timeline() {
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.25 }}
-                    transition={{
-                      duration: 0.55,
-                      ease: "easeOut",
-                      delay: idx * 0.08,
-                    }}
+                    transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.08 }}
                     className="relative"
                   >
-                    {/* dot on the line */}
                     <div className="mx-auto relative top-5 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
 
-                    {/* icon bubble */}
                     <div className="mx-auto mt-9 h-12 w-12 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center shadow-sm">
                       <Icon className="text-2xl text-green-800" />
                     </div>
 
-                    {/* card */}
                     <div className="mt-5 rounded-2xl border border-green-100 bg-white p-6 shadow-sm">
-                      <p className="text-sm font-bold text-green-800">
-                        {item.year}
-                      </p>
+                      <p className="text-sm font-bold text-green-800">{item.year}</p>
                       <h3 className="mt-1 text-lg font-bold text-green-900">
                         {item.title}
                       </h3>
@@ -141,6 +100,6 @@ export default function Timeline() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

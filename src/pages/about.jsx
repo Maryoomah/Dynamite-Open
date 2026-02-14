@@ -3,29 +3,28 @@ import Timeline from "../components/timeline";
 import Footer from "../components/footer";
 
 function About() {
-  return (
-    <main className="bg-green-50">
-      {/* HERO */}
-      <section
-        className="py-12 sm:py-16 lg:py-20"
-        data-aos="fade-up"
-      >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="uppercase font-extrabold text-3xl sm:text-4xl lg:text-6xl text-green-800 leading-tight">
-            About Dynamite{" "}
-            <span className="text-yellow-500">Open</span>
-          </h1>
+  return ( <main>
+    {/* HERO */}
+<section className="bg-green-50 py-12 sm:py-16 lg:py-20" data-aos="fade-up">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="space-y-4 sm:space-y-6">
+      <h1 className="uppercase font-extrabold text-3xl sm:text-4xl lg:text-6xl text-green-800 leading-tight">
+        About Dynamite{" "}
+        <span className="text-yellow-500">Open</span>
+      </h1>
 
-          <p className="mt-4 sm:mt-6 text-green-900/80 font-semibold max-w-2xl">
-            A Scrabble tournament built on competition, community, and excellence.
-          </p>
-        </div>
-      </section>
+      <p className="text-green-900/80 font-semibold max-w-2xl">
+        A Scrabble tournament built on competition, community, and excellence.
+      </p>
+    </div>
+  </div>
+</section>
 
-      {/* TIMELINE */}
-      <section className="bg-green-800" data-aos="fade-up">
-        <Timeline />
-      </section>
+{/* TIMELINE */}
+<section className= "bg-green-800" data-aos="fade-up">
+  <Timeline />
+</section>
+
 
       {/* MISSION & VISION */}
       <section
