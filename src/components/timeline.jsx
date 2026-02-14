@@ -30,8 +30,8 @@ const items = [
 
 export default function Timeline() {
   return (
-    <section className="py-16 bg-green-800">
-      <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6">
+    <section className="bg-green-800 py-12 sm:py-16 lg:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -39,16 +39,16 @@ export default function Timeline() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-center"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-green-50">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-green-50">
             Our Journey
           </h2>
-          <p className="mt-3 text-green-50 max-w-2xl mx-auto">
+          <p className="mt-3 text-green-50/90 max-w-2xl mx-auto">
             A quick timeline of how Dynamite Open has grown over the years.
           </p>
         </motion.div>
 
-        {/* MOBILE: vertical timeline */}
-        <div className="mt-12 space-y-8 lg:hidden">
+        {/* MOBILE: vertical timeline (default) */}
+        <div className="mt-10 sm:mt-12 space-y-8 md:hidden">
           {items.map((item, idx) => {
             const Icon = item.icon;
             return (
@@ -57,23 +57,30 @@ export default function Timeline() {
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.5, ease: "easeOut", delay: idx * 0.05 }}
-                className="relative pl-10"
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                  delay: idx * 0.05,
+                }}
+                className="relative pl-12"
               >
-                {/* line */}
-                <div className="absolute left-4 top-0 bottom-0 w-0.75 bg-green-100 rounded-full" />
+                {/* vertical line */}
+                <div className="absolute left-5 top-0 bottom-0 w-px bg-green-100/80" />
 
                 {/* dot */}
-                <div className="absolute left-1.75 top-1 w-5 h-5 rounded-full bg-yellow-400 ring-4 ring-white" />
+                <div className="absolute left-[14px] top-2 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
 
                 {/* icon bubble */}
-                <div className="absolute left-0 top-8 w-9 h-9 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center">
+                <div className="absolute left-0 top-9 h-10 w-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center">
                   <Icon className="text-green-800" />
                 </div>
 
-                <div className="rounded-2xl border border-green-100 bg-white p-6 shadow-sm">
-                  <p className="text-sm font-bold text-green-800">{item.year}</p>
-                  <h3 className="mt-1 text-xl font-bold text-green-900">
+                {/* card */}
+                <div className="rounded-2xl border border-green-100 bg-white p-5 sm:p-6 shadow-sm">
+                  <p className="text-sm font-bold text-green-800">
+                    {item.year}
+                  </p>
+                  <h3 className="mt-1 text-lg sm:text-xl font-bold text-green-900">
                     {item.title}
                   </h3>
                   <p className="mt-2 text-green-900/70 leading-relaxed">
@@ -85,13 +92,13 @@ export default function Timeline() {
           })}
         </div>
 
-        {/* DESKTOP: horizontal timeline */}
-        <div className="mt-14 hidden lg:block">
-          {/* top line */}
+        {/* TABLET+ DESKTOP: horizontal timeline */}
+        <div className="mt-12 hidden md:block">
           <div className="relative">
-            <div className="absolute left-0 right-0 top-6 h-0.75 bg-green-100 rounded-full" />
+            {/* top line */}
+            <div className="absolute left-0 right-0 top-7 h-px bg-green-100/80" />
 
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {items.map((item, idx) => {
                 const Icon = item.icon;
                 return (
@@ -108,16 +115,18 @@ export default function Timeline() {
                     className="relative"
                   >
                     {/* dot on the line */}
-                    <div className="mx-auto w-5 h-5 rounded-full bg-yellow-400 ring-4 ring-white relative top-3" />
+                    <div className="mx-auto relative top-5 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
 
                     {/* icon bubble */}
-                    <div className="mx-auto mt-6 w-12 h-12 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center shadow-sm">
+                    <div className="mx-auto mt-9 h-12 w-12 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center shadow-sm">
                       <Icon className="text-2xl text-green-800" />
                     </div>
 
                     {/* card */}
                     <div className="mt-5 rounded-2xl border border-green-100 bg-white p-6 shadow-sm">
-                      <p className="text-sm font-bold text-green-800">{item.year}</p>
+                      <p className="text-sm font-bold text-green-800">
+                        {item.year}
+                      </p>
                       <h3 className="mt-1 text-lg font-bold text-green-900">
                         {item.title}
                       </h3>
@@ -130,8 +139,6 @@ export default function Timeline() {
               })}
             </div>
           </div>
-
-    
         </div>
       </div>
     </section>
