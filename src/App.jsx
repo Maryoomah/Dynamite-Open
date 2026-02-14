@@ -11,7 +11,7 @@ import Contact from "./pages/contact";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+console.log("APP RENDERED");
 function App() {
   useEffect(() => {
     AOS.init({

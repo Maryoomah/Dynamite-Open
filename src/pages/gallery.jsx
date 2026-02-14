@@ -41,7 +41,7 @@ import Footer from "../components/footer";
                   className="overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition duration-300"
                 >
                   <img
-                    src={`/gallery/${edition.folder}/${i + 1}.jpg`}
+                    src={`gallery/${edition.folder}/${i + 1}.jpeg`}
                     alt={`${edition.title} ${i + 1}`}
                     className="w-full h-56 object-cover hover:scale-105 transition duration-300"
                   />
