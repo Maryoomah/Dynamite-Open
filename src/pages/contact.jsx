@@ -51,7 +51,7 @@ function Contact() {
 
               <p className="flex items-center gap-3">
                 <FaPhone className="text-green-700" />
-                +234 800 000 0000
+                +234 7033 7162 03
               </p>
 
               <p className="flex items-center gap-3">
