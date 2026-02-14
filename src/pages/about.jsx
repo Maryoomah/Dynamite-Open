@@ -7,7 +7,7 @@ function About() {
     <main>
       <section className="p-16 sm:p-20 bg-green-50" data-aos="fade-up" >
         <div className="mt-5">
-          <h1 className="uppercase font-extrabold text-4xl md:text-6xl text-green-800">
+          <h1 className="uppercase font-extrabold text-4xl md:text-6xl  text-green-800">
             About Dynamite  
             <span className=" text-yellow-500">  Open
             </span>
@@ -18,10 +18,10 @@ function About() {
           </p>
         </div>
       </section>
-<section className="bg-green-800">
+<section className="bg-green-800 mb-14">
 <Timeline/>
 </section>
-<section className="py-20 bg-green-50">
+<section className=" bg-green-50">
   <div className=" w-full lg:max-w-6xl lg:mx-auto px-4 sm:px-6">
 
     <div className="text-center mb-14">
