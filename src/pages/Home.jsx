@@ -118,7 +118,11 @@ function Home() {
                     Register Now
                   </button>
 
-                  <Button text="View Participants" secondary />
+                  <div>
+                    <button className="w-full sm:w-auto bg-green-800 text-yellow-400 font-bold hover:bg-green-600 hover:text-white px-6 py-3 text-base sm:text-lg rounded-xl">
+                      View Participants
+                    </button>{" "}
+                  </div>
                 </div>
               </div>
             </div>
