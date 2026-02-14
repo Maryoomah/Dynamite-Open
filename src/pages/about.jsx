@@ -18,10 +18,10 @@ function About() {
           </p>
         </div>
       </section>
-<section className="bg-green-800 mb-14">
+<section className="bg-green-800">
 <Timeline/>
 </section>
-<section className=" bg-green-50">
+<section className="py-20 bg-green-50">
   <div className=" w-full lg:max-w-6xl lg:mx-auto px-4 sm:px-6">
 
     <div className="text-center mb-14">
