@@ -26,7 +26,7 @@ import Footer from "../components/footer";
           key={edition.folder}
           className={`py-16 ${
             index % 2 === 0 ? "bg-white" : "bg-green-50"
-          }`}
+          }`} data-aos="zoom-in"
         >
           <div className="max-w-7xl mx-auto px-6">
 

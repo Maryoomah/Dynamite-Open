@@ -131,7 +131,7 @@ function Home() {
       </section>
 
       {/* Tournament Breakdown */}
-      <section className="py-16 bg-green-700" id="tournament-breakdown">
+      <section className="py-16 bg-green-700" id="tournament-breakdown" data-aos="fade-up">
         <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-amber-50">
             Tournament Breakdown
@@ -177,7 +177,7 @@ function Home() {
             ))}{" "}
           </div>
 
-          {/* Optional disclaimer */}
+          {/*  disclaimer */}
           <p className="mt-6 text-sm text-amber-50">
             Note: Inter-Secondary School entry is currently free and may be
             updated later.
@@ -185,7 +185,6 @@ function Home() {
         </div>
       </section>
       {/* metrics */}
-      {/* Metrics */}
       <section className=" bg-green-300">
         <Metrics />
       </section>
