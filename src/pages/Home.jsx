@@ -24,11 +24,11 @@ const categories = [
   },
   {
     title: "Inter-Secondary School",
-    fee: "Free (for now)",
+    fee: "Free",
     notes: [
       "Each school brings 4 students: 2 male + 2 female",
       "Spelling Bee: 1 male + 1 female",
-      "Fee is not final yet",
+      "Entry is free",
     ],
     register: true,
     path: "/register/school",
@@ -131,25 +131,31 @@ function Home() {
       </section>
 
       {/* Tournament Breakdown */}
-      <section className="py-16 bg-green-700" id="tournament-breakdown" data-aos="fade-up">
-        <div className="lg:max-w-6xl lg:mx-auto w-full px-4 sm:px-6">
-          <h2 className="text-3xl font-bold text-amber-50">
+      <section
+        className="py-20 bg-green-700"
+        id="tournament-breakdown"
+        data-aos="fade-up"
+      >
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+          <h2 className="text-3xl text-center font-bold text-amber-50">
             Tournament Breakdown
           </h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 ">
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
             {categories.map((c) => (
               <div
                 key={c.title}
-                className="rounded-2xl border bg-white p-6 shadow-sm transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl"
+                data-aos="fade-up"
+                className="rounded-3xl bg-white p-7 sm:p-8 shadow-md transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 hover:shadow-2xl"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">
                       {c.title}
                     </h3>
+
                     {c.badge && (
-                      <span className="inline-block mt-2 text-sm px-3 py-1 rounded-full bg-green-50 text-green-800">
+                      <span className="inline-block mt-3 text-sm px-3 py-1 rounded-full bg-green-50 text-green-800">
                         Rating: {c.badge}
                       </span>
                     )}
@@ -160,28 +166,24 @@ function Home() {
                     <p className="text-lg font-bold text-green-900">{c.fee}</p>
                   </div>
                 </div>
-                <ul className="mt-4 space-y-2 text-gray-700 list-disc pl-5">
+
+                <ul className="mt-5 space-y-2 text-gray-700 list-disc pl-5">
                   {c.notes.map((n) => (
                     <li key={n}>{n}</li>
                   ))}
                 </ul>
+
                 {c.register && (
                   <Link
                     to={c.path}
-                    className="mt-6 inline-block bg-green-600 text-amber-100 px-4 py-2 rounded-lg hover:bg-green-700"
+                    className="mt-7 inline-block bg-green-600 text-amber-100 px-5 py-2.5 rounded-xl hover:bg-green-700 transition"
                   >
                     Register
                   </Link>
                 )}
               </div>
-            ))}{" "}
+            ))}
           </div>
-
-          {/*  disclaimer */}
-          <p className="mt-6 text-sm text-amber-50">
-            Note: Inter-Secondary School entry is currently free and may be
-            updated later.
-          </p>
         </div>
       </section>
       {/* metrics */}

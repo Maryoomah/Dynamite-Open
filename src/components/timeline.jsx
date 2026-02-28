@@ -2,10 +2,30 @@ import { motion } from "framer-motion";
 import { FaFlagCheckered, FaUsers, FaSchool, FaTrophy } from "react-icons/fa";
 
 const items = [
-  { year: "2022", title: "The First Spark", text: "Dynamite Open launched its first Scrabble tournament with a focus on fair play and community.", icon: FaFlagCheckered },
-  { year: "2023", title: "Growth & Community", text: "Participation grew as more players joined across categories and the event gained recognition.", icon: FaUsers },
-  { year: "2024", title: "Schools & Inclusion", text: "Student and school-focused activities were introduced to support youth involvement and inclusion.", icon: FaSchool },
-  { year: "2025", title: "Bigger Wins", text: "Prizes and partnerships expanded, delivering a stronger tournament experience for everyone.", icon: FaTrophy },
+  {
+    year: "2022",
+    title: "The First Spark",
+    text: "Dynamite Open launched its first Scrabble tournament with a focus on fair play and community.",
+    icon: FaFlagCheckered,
+  },
+  {
+    year: "2023",
+    title: "Growth & Community",
+    text: "Participation grew as more players joined across categories and the event gained recognition.",
+    icon: FaUsers,
+  },
+  {
+    year: "2024",
+    title: "Schools & Inclusion",
+    text: "Student and school-focused activities were introduced to support youth involvement and inclusion.",
+    icon: FaSchool,
+  },
+  {
+    year: "2025",
+    title: "Bigger Wins",
+    text: "Prizes and partnerships expanded, delivering a stronger tournament experience for everyone.",
+    icon: FaTrophy,
+  },
 ];
 
 export default function Timeline() {
@@ -27,39 +47,43 @@ export default function Timeline() {
           </p>
         </motion.div>
 
-        {/* MOBILE */}
-        <div className="mt-10 sm:mt-12 space-y-8 md:hidden">
-          {items.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.5, ease: "easeOut", delay: idx * 0.05 }}
-                className="relative pl-12"
-              >
-                <div className="absolute left-5 top-0 bottom-0 w-px bg-green-100/80" />
-                <div className="absolute left-[14px] top-2 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
+{/* MOBILE*/}
+<div className="mt-12 space-y-6 md:hidden px-4">
+  {items.map((item, idx) => {
+    const Icon = item.icon;
 
-                <div className="absolute left-0 top-9 h-10 w-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center">
-                  <Icon className="text-green-800" />
-                </div>
+    return (
+      <motion.div
+        key={item.year}
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: idx * 0.05 }}
+        className="rounded-2xl bg-white p-5 shadow-md"
+      >
+        <div className="flex items-start gap-3">
+          <div className="h-10 w-10 rounded-xl bg-green-50 border border-green-200 flex items-center justify-center shrink-0">
+            <Icon className="text-green-800 text-lg" />
+          </div>
 
-                <div className="rounded-2xl border border-green-100 bg-white p-5 sm:p-6 shadow-sm">
-                  <p className="text-sm font-bold text-green-800">{item.year}</p>
-                  <h3 className="mt-1 text-lg sm:text-xl font-bold text-green-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-green-900/70 leading-relaxed">
-                    {item.text}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+          <div>
+            <p className="text-xs font-bold text-green-700 tracking-wide">
+              {item.year}
+            </p>
+
+            <h3 className="mt-1 text-base font-bold text-green-900 leading-snug">
+              {item.title}
+            </h3>
+          </div>
         </div>
+
+        <p className="mt-3 text-sm text-green-900/70 leading-relaxed">
+          {item.text}
+        </p>
+      </motion.div>
+    );
+  })}
+</div>
 
         {/* TABLET+ */}
         <div className="mt-12 hidden md:block">
@@ -75,7 +99,11 @@ export default function Timeline() {
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.25 }}
-                    transition={{ duration: 0.55, ease: "easeOut", delay: idx * 0.08 }}
+                    transition={{
+                      duration: 0.55,
+                      ease: "easeOut",
+                      delay: idx * 0.08,
+                    }}
                     className="relative"
                   >
                     <div className="mx-auto relative top-5 h-4 w-4 rounded-full bg-yellow-400 ring-4 ring-green-800" />
@@ -85,7 +113,9 @@ export default function Timeline() {
                     </div>
 
                     <div className="mt-5 rounded-2xl border border-green-100 bg-white p-6 shadow-sm">
-                      <p className="text-sm font-bold text-green-800">{item.year}</p>
+                      <p className="text-sm font-bold text-green-800">
+                        {item.year}
+                      </p>
                       <h3 className="mt-1 text-lg font-bold text-green-900">
                         {item.title}
                       </h3>
