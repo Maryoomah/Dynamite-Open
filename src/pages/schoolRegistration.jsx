@@ -103,47 +103,47 @@ function PlayerCard({ heading, tag = "Required", children }) {
     </div>
   );
 }
+const initialFormData = {
+  schoolName: "",
+  schoolAddress: "",
+  contactPerson: "",
+  contactEmail: "",
+  contactPhone: "",
 
+  scrabbleMale1Name: "",
+  scrabbleMale1Dob: "",
+  scrabbleMale1Gender: "",
+  scrabbleMale1Class: "",
+
+  scrabbleMale2Name: "",
+  scrabbleMale2Dob: "",
+  scrabbleMale2Gender: "",
+  scrabbleMale2Class: "",
+
+  scrabbleFemale1Name: "",
+  scrabbleFemale1Dob: "",
+  scrabbleFemale1Gender: "",
+  scrabbleFemale1Class: "",
+
+  scrabbleFemale2Name: "",
+  scrabbleFemale2Dob: "",
+  scrabbleFemale2Gender: "",
+  scrabbleFemale2Class: "",
+
+  beeMaleName: "",
+  beeMaleDob: "",
+  beeMaleGender: "",
+  beeMaleClass: "",
+
+  beeFemaleName: "",
+  beeFemaleDob: "",
+  beeFemaleGender: "",
+  beeFemaleClass: "",
+
+  agreed: false,
+};
 export default function SchoolRegistration() {
-  const [formData, setFormData] = useState({
-    schoolName: "",
-    schoolAddress: "",
-    contactPerson: "",
-    contactEmail: "",
-    contactPhone: "",
-
-    scrabbleMale1Name: "",
-    scrabbleMale1Dob: "",
-    scrabbleMale1Gender: "",
-    scrabbleMale1Class: "",
-
-    scrabbleMale2Name: "",
-    scrabbleMale2Dob: "",
-    scrabbleMale2Gender: "",
-    scrabbleMale2Class: "",
-
-    scrabbleFemale1Name: "",
-    scrabbleFemale1Dob: "",
-    scrabbleFemale1Gender: "",
-    scrabbleFemale1Class: "",
-
-    scrabbleFemale2Name: "",
-    scrabbleFemale2Dob: "",
-    scrabbleFemale2Gender: "",
-    scrabbleFemale2Class: "",
-
-    beeMaleName: "",
-    beeMaleDob: "",
-    beeMaleGender: "",
-    beeMaleClass: "",
-
-    beeFemaleName: "",
-    beeFemaleDob: "",
-    beeFemaleGender: "",
-    beeFemaleClass: "",
-
-    agreed: false,
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
@@ -177,12 +177,13 @@ export default function SchoolRegistration() {
         "EFzPn9Dkw09RICB86",
       );
 
+      setSubmitError("");
       setSubmitSuccess("Registration submitted successfully!");
-
       setFormData(initialFormData);
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error(error);
 
+      // EmailJS errors
       if (error?.status === 400) {
         setSubmitError("Invalid request. Please check your inputs.");
       } else if (error?.status === 401) {
@@ -194,11 +195,12 @@ export default function SchoolRegistration() {
       } else {
         setSubmitError("Network error. Please check your connection.");
       }
+
+      setSubmitSuccess("");
     } finally {
       setSending(false);
     }
   }
-
   const grid2 = "grid gap-4 sm:grid-cols-2";
   const genderOptions = [
     { value: "", label: "Select Gender" },
@@ -229,6 +231,26 @@ export default function SchoolRegistration() {
 
   return (
     <section className="py-14 sm:py-16 bg-gradient-to-br from-green-600 via-green-700 to-green-800">
+      {submitSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h3 className="text-lg font-semibold text-green-600 mb-2">
+              Success 🎉
+            </h3>
+            <p className="text-sm text-gray-700 mb-6">{submitSuccess}</p>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => setSubmitSuccess("")}
+                className="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700 transition"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center sm:text-left">
@@ -375,7 +397,7 @@ export default function SchoolRegistration() {
                       required
                       options={genderOptions}
                     />
-                  <Field
+                    <Field
                       label="Class"
                       type="select"
                       name={`${p.key}Class`}
@@ -419,18 +441,16 @@ export default function SchoolRegistration() {
                   type="submit"
                   disabled={sending}
                   className="bg-green-800 text-yellow-400 font-bold px-6 py-3 rounded-xl
-             disabled:opacity-60 disabled:cursor-not-allowed
-             hover:bg-green-600 hover:text-white transition"
+      disabled:opacity-60 disabled:cursor-not-allowed
+      hover:bg-green-600 hover:text-white transition"
                 >
                   {sending ? "Submitting..." : "Submit Registration"}
                 </button>
+
                 {submitError && (
                   <p className="text-red-500 text-sm mt-3">{submitError}</p>
                 )}
 
-                {submitSuccess && (
-                  <p className="text-green-500 bg-white p-1 text-sm mt-3">{submitSuccess}</p>
-                )}
                 <p className="text-xs text-white/70">
                   By submitting, you agree the information is correct.
                 </p>

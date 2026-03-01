@@ -28,7 +28,7 @@ const categories = [
     notes: [
       "Each school brings 4 students: 2 male + 2 female",
       "Spelling Bee: 1 male + 1 female",
-      "Entry is free",
+      "Entry is free                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       n ",
     ],
     register: true,
     path: "/register/school",
