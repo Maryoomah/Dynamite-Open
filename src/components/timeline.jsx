@@ -5,7 +5,7 @@ const items = [
   {
     year: "2022",
     title: "The First Spark",
-    text: "Dynamite Open launched its first Scrabble tournament with a focus on fair play and community.",
+    text: "Dynamite Opens launched its first Scrabble tournament with a focus on fair play and community.",
     icon: FaFlagCheckered,
   },
   {
@@ -43,7 +43,7 @@ export default function Timeline() {
             Our Journey
           </h2>
           <p className="mt-3 text-green-50/90 max-w-2xl mx-auto">
-            A quick timeline of how Dynamite Open has grown over the years.
+            A quick timeline of how Dynamite Opens has grown over the years.
           </p>
         </motion.div>
 

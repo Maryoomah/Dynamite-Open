@@ -46,7 +46,7 @@ function Footer() {
           <div className="flex flex-col gap-3">
             <h4 className="m-0 font-semibold text-yellow-400 mb-4">Contact</h4>
 
-            <p className="text-white/80">info@dynamiteopen.com</p>
+            <p className="text-white/80">info@dynamiteopens.com</p>
 
             <div className="flex gap-4 text-xl">
               <FaInstagram className="hover:text-yellow-300 cursor-pointer transition" />
@@ -60,7 +60,7 @@ function Footer() {
       {/* Bottom bar */}
       <div className="mt-10 border-t border-green-700 py-5 text-center text-sm text-white/60">
         © {new Date().getFullYear()}
-        <span className="text-yellow-400 font-semibold"> Dynamite Open </span>.
+        <span className="text-yellow-400 font-semibold"> Dynamite Opens </span>.
         All rights reserved.
       </div>
     </footer>

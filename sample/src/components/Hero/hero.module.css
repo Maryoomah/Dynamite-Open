@@ -1,0 +1,45 @@
+.major_text {
+  background: linear-gradient(
+    171deg,
+    rgba(255, 255, 255, 1) 56%,
+    rgba(125, 125, 125, 1) 83%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.border_holder {
+  background-color: rgba(54, 9, 90, 0.1);
+  margin-bottom: 0px;
+  padding: 0.6em;
+  border-radius: 15px;
+}
+
+.neon_glow {
+  width: 10px;
+  height: 400px;
+  border-radius: 20px;
+  background: #0caeee;
+  box-shadow: 0 0 10px #0caeee, 0 0 20px #0caeee, 0 0 30px #0caeee,
+    0 0 40px #0caeee, 0 0 70px #0caeee, 0 0 80px #0caeee, 0 0 100px #0caeee,
+    0 0 150px #0caeee;
+  animation: neon 1.5s linear infinite;
+}
+
+@keyframes neon {
+  0% {
+    box-shadow: 0 0 10px #0caeee, 0 0 20px #0caeee, 0 0 30px #0caeee,
+      0 0 40px #0caeee, 0 0 70px #0caeee, 0 0 80px #0caeee, 0 0 100px #0caeee,
+      0 0 150px #0caeee;
+  }
+  50% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 0 10px #0caeee, 0 0 20px #0caeee, 0 0 30px #0caeee,
+      0 0 40px #0caeee, 0 0 70px #0caeee, 0 0 80px #0caeee, 0 0 100px #0caeee,
+      0 0 150px #0caeee;
+  }
+}

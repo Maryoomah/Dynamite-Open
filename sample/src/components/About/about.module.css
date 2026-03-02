@@ -1,0 +1,26 @@
+.about_bg {
+    background: rgb(2,0,36);
+    background: linear-gradient(12deg, rgba(2,0,36,1) 10%, rgba(28,24,56,0.9752275910364145) 37%, rgba(12,174,238,1) 66%, rgba(13,128,179,1) 100%);
+}
+
+.icon_bg {
+    background: rgba(12, 174, 238, 0.21);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.1px);
+    -webkit-backdrop-filter: blur(6.1px);
+    border: 1px solid rgba(12, 174, 238, 0.3);
+}
+
+.about_text {
+    background: linear-gradient(165deg, rgba(2,0,36,1) 10%, rgba(28,24,56,0.9752275910364145) 21%, rgba(16,104,151,1) 26%, rgba(13,128,179,1) 100%);
+    background-clip: text;
+    color: transparent;
+    text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.about_text_bg {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(14.9px);
+    -webkit-backdrop-filter: blur(14.9px);
+}

@@ -1,50 +1,51 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useForm } from "react-hook-form";
+import SEO from "../components/SEO";
 
 function Field({
   label,
   name,
-  value,
-  onChange,
+  register,
+  validation = {},
   type = "text",
   placeholder,
-  required = false,
+  error,
   className = "",
   options,
+  readOnly = false,
 }) {
   const base =
-    "w-full rounded-xl bg-white/95 text-green-950 placeholder:text-green-900/40 " +
-    "border border-white/40 px-4 py-3 shadow-sm " +
-    "focus:outline-none focus:ring-2 focus:ring-yellow-300/70 focus:border-yellow-300 " +
-    "transition";
+    "w-full rounded-2xl bg-white/10 text-white placeholder:text-white/30 " +
+    "border border-white/20 px-5 py-4 shadow-sm transition-all duration-300 " +
+    "focus:outline-none focus:ring-2 focus:ring-yellow-400/30 focus:border-yellow-400/50 focus:bg-white/20";
 
-  const labelClass = "text-xs font-semibold tracking-wide text-white/80";
+  const normalBorder = "border-white/20";
+  const errorBorder = "border-red-400 focus:border-red-400 focus:ring-red-400/20";
+
+  const labelClass = "text-[11px] font-black uppercase tracking-widest text-white/50 ml-2";
 
   if (type === "select") {
     return (
-      <div className={className}>
+      <div className={className + " space-y-2"}>
         <label className={labelClass}>{label}</label>
-        <div className="relative mt-2">
+        <div className="relative">
           <select
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-            className={`${base} appearance-none pr-10 cursor-pointer`}
+            {...register(name, validation)}
+            disabled={readOnly}
+            className={`${base} ${error ? errorBorder : normalBorder} appearance-none pr-12 cursor-pointer font-medium`}
           >
             {options?.map((opt) => (
-              <option key={opt.value} value={opt.value}>
+              <option key={opt.value} value={opt.value} className="bg-green-900 text-white">
                 {opt.label}
               </option>
             ))}
           </select>
 
-          {/* chevron */}
           <svg
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-green-900/60"
+            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40"
             viewBox="0 0 20 20"
             fill="currentColor"
-            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -53,49 +54,49 @@ function Field({
             />
           </svg>
         </div>
+        {!!error && <p className="ml-2 text-[10px] font-bold text-red-300 uppercase tracking-wider">{error.message}</p>}
       </div>
     );
   }
 
   return (
-    <div className={className}>
+    <div className={className + " space-y-2"}>
       <label className={labelClass}>{label}</label>
       <input
         type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
+        {...register(name, validation)}
         placeholder={placeholder}
-        required={required}
-        className={`${base} mt-2`}
+        readOnly={readOnly}
+        className={`${base} ${error ? errorBorder : normalBorder} font-medium`}
       />
+      {!!error && <p className="ml-2 text-[10px] font-bold text-red-300 uppercase tracking-wider">{error.message}</p>}
     </div>
   );
 }
 
 function Card({ title, subtitle, children }) {
   return (
-    <div
-      className="rounded-3xl bg-white/10 border border-white/15 backdrop-blur-xl
-                 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.45)] p-6 sm:p-8"
-    >
-      <div className="mb-6">
-        <h3 className="text-xl sm:text-2xl font-bold text-white">{title}</h3>
-        {subtitle ? (
-          <p className="mt-2 text-sm sm:text-base text-white/80">{subtitle}</p>
-        ) : null}
+    <div className="relative p-1 rounded-4xl sm:rounded-[2.8rem] bg-linear-to-tr from-green-500/20 via-white/5 to-yellow-500/20 shadow-2xl transition-all duration-500 hover:shadow-green-500/10">
+      <div className="relative bg-[#0d3b28]/95 backdrop-blur-3xl rounded-4xl sm:rounded-[2.5rem] p-6 sm:p-12 border border-white/10">
+        <div className="mb-8 sm:mb-10 space-y-2">
+          <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">{title}</h3>
+          <div className="h-1.5 w-12 bg-yellow-500 rounded-full" />
+          {subtitle && (
+            <p className="mt-4 text-green-100/60 font-medium text-xs sm:text-sm leading-relaxed max-w-xl">{subtitle}</p>
+          )}
+        </div>
+        {children}
       </div>
-      {children}
     </div>
   );
 }
 
 function PlayerCard({ heading, tag = "Required", children }) {
   return (
-    <div className="rounded-2xl bg-white/10 border border-white/15 backdrop-blur p-5 sm:p-6">
-      <div className="mb-5 flex items-center justify-between gap-3">
-        <h4 className="font-bold text-white">{heading}</h4>
-        <span className="rounded-full bg-yellow-400/20 text-yellow-200 px-3 py-1 text-xs font-semibold">
+    <div className="rounded-3xl sm:rounded-4xl bg-white/5 border border-white/10 p-5 sm:p-8 space-y-6">
+      <div className="flex items-center justify-between gap-3 border-b border-white/5 pb-4">
+        <h4 className="font-black text-[10px] sm:text-xs uppercase tracking-[0.2em] text-yellow-400">{heading}</h4>
+        <span className="rounded-full bg-yellow-400/10 text-yellow-500 px-3 sm:px-4 py-1.5 text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
           {tag}
         </span>
       </div>
@@ -103,66 +104,28 @@ function PlayerCard({ heading, tag = "Required", children }) {
     </div>
   );
 }
-const initialFormData = {
-  schoolName: "",
-  schoolAddress: "",
-  contactPerson: "",
-  contactEmail: "",
-  contactPhone: "",
 
-  scrabbleMale1Name: "",
-  scrabbleMale1Dob: "",
-  scrabbleMale1Gender: "",
-  scrabbleMale1Class: "",
-
-  scrabbleMale2Name: "",
-  scrabbleMale2Dob: "",
-  scrabbleMale2Gender: "",
-  scrabbleMale2Class: "",
-
-  scrabbleFemale1Name: "",
-  scrabbleFemale1Dob: "",
-  scrabbleFemale1Gender: "",
-  scrabbleFemale1Class: "",
-
-  scrabbleFemale2Name: "",
-  scrabbleFemale2Dob: "",
-  scrabbleFemale2Gender: "",
-  scrabbleFemale2Class: "",
-
-  beeMaleName: "",
-  beeMaleDob: "",
-  beeMaleGender: "",
-  beeMaleClass: "",
-
-  beeFemaleName: "",
-  beeFemaleDob: "",
-  beeFemaleGender: "",
-  beeFemaleClass: "",
-
-  agreed: false,
-};
 export default function SchoolRegistration() {
-  const [formData, setFormData] = useState(initialFormData);
-
-  function handleChange(e) {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  }
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    defaultValues: {
+      schoolName: "",
+      schoolAddress: "",
+      contactPerson: "",
+      contactEmail: "",
+      contactPhone: "",
+      agreed: false,
+    }
+  });
 
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState("");
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  
+  const onSubmit = async (data) => {
     setSubmitError("");
     setSubmitSuccess("");
 
-    if (!formData.agreed) {
+    if (!data.agreed) {
       setSubmitError("You must agree to the terms and conditions.");
       return;
     }
@@ -173,35 +136,20 @@ export default function SchoolRegistration() {
       await emailjs.send(
         "service_nj2zxzq",
         "template_wlpzggb",
-        formData,
+        data,
         "EFzPn9Dkw09RICB86",
       );
 
-      setSubmitError("");
       setSubmitSuccess("Registration submitted successfully!");
-      setFormData(initialFormData);
+      reset();
     } catch (error) {
-      console.error(error);
-
-      // EmailJS errors
-      if (error?.status === 400) {
-        setSubmitError("Invalid request. Please check your inputs.");
-      } else if (error?.status === 401) {
-        setSubmitError("Email service configuration error.");
-      } else if (error?.status === 429) {
-        setSubmitError("Too many attempts. Please wait before trying again.");
-      } else if (error?.text) {
-        setSubmitError(error.text);
-      } else {
-        setSubmitError("Network error. Please check your connection.");
-      }
-
-      setSubmitSuccess("");
+      console.error("EmailJS Error:", error);
+      setSubmitError(error?.text || "Network error. Please try again.");
     } finally {
       setSending(false);
     }
-  }
-  const grid2 = "grid gap-4 sm:grid-cols-2";
+  };
+
   const genderOptions = [
     { value: "", label: "Select Gender" },
     { value: "male", label: "Male" },
@@ -230,132 +178,129 @@ export default function SchoolRegistration() {
   ];
 
   return (
-    <section className="py-14 sm:py-16 bg-gradient-to-br from-green-600 via-green-700 to-green-800">
-      {submitSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <h3 className="text-lg font-semibold text-green-600 mb-2">
-              Success 🎉
-            </h3>
-            <p className="text-sm text-gray-700 mb-6">{submitSuccess}</p>
+    <section className="min-h-screen py-10 sm:py-16 bg-[#0a2e1f] relative overflow-hidden">
+      <SEO title="School Registration" description="Register your school team for the Dynamite Opens inter-school competition." />
+      
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-1/4 -right-24 h-[500px] w-[500px] rounded-full bg-green-800/20 blur-3xl opacity-30 sm:opacity-50" />
+        <div className="absolute bottom-1/4 -left-24 h-[500px] w-[500px] rounded-full bg-yellow-500/5 blur-3xl opacity-30 sm:opacity-50" />
+      </div>
 
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => setSubmitSuccess("")}
-                className="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700 transition"
-              >
-                OK
-              </button>
-            </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 w-full">
+        <div className="text-center sm:text-left space-y-4 mb-10 sm:mb-16">
+          <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 uppercase tracking-[0.2em] text-[10px] font-black text-yellow-500">
+            Inter-School Champions
           </div>
-        </div>
-      )}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div className="text-center sm:text-left">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Inter-School Registration
-          </h2>
-          <p className="mt-2 text-white/80 max-w-2xl">
-            Register your school team for Scrabble and Spelling Bee.
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
+            Team <span className="text-transparent bg-clip-text bg-linear-to-r from-yellow-500 to-amber-400">Registration</span>
+          </h1>
+          <p className="text-green-100/60 font-medium text-base sm:text-lg leading-relaxed max-w-xl">
+            Empowering the next generation of Scrabble masters. 
+            Register your school's finest players today.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-10">
-          {/* SCHOOL INFO */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 sm:y-16 group/form">
           <Card
-            title="School Information"
-            subtitle="Tell us about your school and the main contact person."
+            title="School Foundation"
+            subtitle="Details about your institution and official coordinator."
           >
-            <div className={grid2}>
+            <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
               <Field
                 label="School Name"
                 name="schoolName"
-                value={formData.schoolName}
-                onChange={handleChange}
-                required
+                register={register}
+                validation={{ required: "School name is required" }}
+                placeholder="Full school name"
+                error={errors.schoolName}
               />
               <Field
-                label="Contact Person"
+                label="Lead Contact Person"
                 name="contactPerson"
-                value={formData.contactPerson}
-                onChange={handleChange}
-                placeholder="Full name"
-                required
+                register={register}
+                validation={{ required: "Contact person is required" }}
+                placeholder="Full name & Title"
+                error={errors.contactPerson}
               />
               <Field
-                label="Contact Email"
+                label="Official Email"
                 name="contactEmail"
                 type="email"
-                value={formData.contactEmail}
-                onChange={handleChange}
-                placeholder="name@school.com"
-                required
+                register={register}
+                validation={{ 
+                  required: "Email is required",
+                  pattern: { value: /^\S+@\S+\.\S+$/, message: "Invalid email" }
+                }}
+                placeholder="school@email.com"
+                error={errors.contactEmail}
               />
               <Field
                 label="Contact Phone"
                 name="contactPhone"
                 type="tel"
-                value={formData.contactPhone}
-                onChange={handleChange}
-                placeholder="+234..."
-                required
+                register={register}
+                validation={{ 
+                  required: "Phone is required",
+                  pattern: { value: /^[0-9]+$/, message: "Numbers only" }
+                }}
+                placeholder="Active phone number"
+                error={errors.contactPhone}
               />
               <Field
-                label="School Address"
+                label="School Physical Address"
                 name="schoolAddress"
-                value={formData.schoolAddress}
-                onChange={handleChange}
-                placeholder="Street, City, State"
-                required
+                register={register}
+                validation={{ required: "Address is required" }}
+                placeholder="Street, City, LGA, State"
+                error={errors.schoolAddress}
                 className="sm:col-span-2"
               />
             </div>
           </Card>
 
-          {/* SCRABBLE TEAM */}
           <Card
-            title="Scrabble Team"
-            subtitle="4 players required: 2 Male and 2 Female."
+            title="The Scrabble Four"
+            subtitle="Official team roster: 2 Male and 2 Female players required."
           >
-            <div className="space-y-6">
+            <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
               {scrabblePlayers.map((p) => (
                 <PlayerCard key={p.key} heading={p.heading}>
-                  <div className={grid2}>
+                  <div className="space-y-5 sm:space-y-6">
                     <Field
-                      label="Full Name"
+                      label="Full Student Name"
                       name={`${p.key}Name`}
-                      value={formData[`${p.key}Name`]}
-                      onChange={handleChange}
-                      placeholder="Student's full name"
-                      required
+                      register={register}
+                      validation={{ required: "Student name is required" }}
+                      placeholder="Student full name"
+                      error={errors[`${p.key}Name`]}
                     />
+                    <div className="grid grid-cols-2 gap-4">
+                      <Field
+                        label="Date of Birth"
+                        name={`${p.key}Dob`}
+                        type="date"
+                        register={register}
+                        validation={{ required: "Required" }}
+                        error={errors[`${p.key}Dob`]}
+                      />
+                      <Field
+                        label="Gender"
+                        type="select"
+                        name={`${p.key}Gender`}
+                        register={register}
+                        validation={{ required: "Required" }}
+                        options={genderOptions}
+                        error={errors[`${p.key}Gender`]}
+                      />
+                    </div>
                     <Field
-                      label="Date of Birth"
-                      name={`${p.key}Dob`}
-                      type="date"
-                      value={formData[`${p.key}Dob`]}
-                      onChange={handleChange}
-                      required
-                    />
-                    <Field
-                      label="Gender"
-                      type="select"
-                      name={`${p.key}Gender`}
-                      value={formData[`${p.key}Gender`]}
-                      onChange={handleChange}
-                      required
-                      options={genderOptions}
-                    />
-                    <Field
-                      label="Class"
+                      label="Current Grade/Class"
                       type="select"
                       name={`${p.key}Class`}
-                      value={formData[`${p.key}Class`]}
-                      onChange={handleChange}
-                      required
+                      register={register}
+                      validation={{ required: "Select class" }}
                       options={classOptions}
+                      error={errors[`${p.key}Class`]}
                     />
                   </div>
                 </PlayerCard>
@@ -363,48 +308,49 @@ export default function SchoolRegistration() {
             </div>
           </Card>
 
-          {/* SPELLING BEE */}
           <Card
-            title="Spelling Bee"
-            subtitle="2 players required: 1 Male and 1 Female."
+            title="Spelling Bee Duo"
+            subtitle="Representing the school's literacy excellence."
           >
-            <div className="space-y-6">
+            <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
               {beePlayers.map((p) => (
                 <PlayerCard key={p.key} heading={p.heading}>
-                  <div className={grid2}>
+                  <div className="space-y-5 sm:space-y-6">
                     <Field
-                      label="Full Name"
+                      label="Full Student Name"
                       name={`${p.key}Name`}
-                      value={formData[`${p.key}Name`]}
-                      onChange={handleChange}
-                      placeholder="Student's full name"
-                      required
+                      register={register}
+                      validation={{ required: "Student name is required" }}
+                      placeholder="Student full name"
+                      error={errors[`${p.key}Name`]}
                     />
+                    <div className="grid grid-cols-2 gap-4">
+                      <Field
+                        label="Date of Birth"
+                        name={`${p.key}Dob`}
+                        type="date"
+                        register={register}
+                        validation={{ required: "Required" }}
+                        error={errors[`${p.key}Dob`]}
+                      />
+                      <Field
+                        label="Gender"
+                        type="select"
+                        name={`${p.key}Gender`}
+                        register={register}
+                        validation={{ required: "Required" }}
+                        options={genderOptions}
+                        error={errors[`${p.key}Gender`]}
+                      />
+                    </div>
                     <Field
-                      label="Date of Birth"
-                      name={`${p.key}Dob`}
-                      type="date"
-                      value={formData[`${p.key}Dob`]}
-                      onChange={handleChange}
-                      required
-                    />
-                    <Field
-                      label="Gender"
-                      type="select"
-                      name={`${p.key}Gender`}
-                      value={formData[`${p.key}Gender`]}
-                      onChange={handleChange}
-                      required
-                      options={genderOptions}
-                    />
-                    <Field
-                      label="Class"
+                      label="Current Grade/Class"
                       type="select"
                       name={`${p.key}Class`}
-                      value={formData[`${p.key}Class`]}
-                      onChange={handleChange}
-                      required
+                      register={register}
+                      validation={{ required: "Select class" }}
                       options={classOptions}
+                      error={errors[`${p.key}Class`]}
                     />
                   </div>
                 </PlayerCard>
@@ -412,52 +358,67 @@ export default function SchoolRegistration() {
             </div>
           </Card>
 
-          {/* TERMS + SUBMIT */}
-          <Card
-            title="Confirmation"
-            subtitle="Please confirm before submitting."
-          >
-            <div className="space-y-5">
-              <p className="text-sm sm:text-base text-white/80">
-                Each student must present valid school identification on event
-                day.
-              </p>
+          <div className="relative p-1 rounded-4xl sm:rounded-[2.8rem] bg-linear-to-tr from-yellow-400/20 to-transparent">
+            <div className="bg-white/5 backdrop-blur-3xl rounded-4xl sm:rounded-[2.5rem] p-6 sm:p-12 border border-white/10">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                <div className="space-y-4">
+                  <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">Final Verification</h3>
+                  <div className="space-y-3">
+                    <label className="flex items-center gap-4 cursor-pointer group/agree">
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          {...register("agreed", { required: "You must agree to the terms" })}
+                          className="peer hidden"
+                        />
+                        <div className={`h-6 w-6 sm:h-7 sm:w-7 rounded-lg border-2 flex items-center justify-center transition-all ${errors.agreed ? 'border-red-400 bg-red-400/10' : 'border-white/20 peer-checked:bg-yellow-500 peer-checked:border-yellow-500'} peer-checked:[&_svg]:scale-100`}>
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5 text-green-950 scale-0 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      </div>
+                      <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-widest group-hover:text-yellow-400 transition-colors">
+                        Accept Terms & Conditions
+                      </span>
+                    </label>
+                    {errors.agreed && <p className="ml-12 text-[10px] font-bold text-red-300 uppercase tracking-wider">{errors.agreed.message}</p>}
+                  </div>
+                </div>
 
-              <label className="flex items-start gap-3 text-white">
-                <input
-                  type="checkbox"
-                  name="agreed"
-                  checked={formData.agreed}
-                  onChange={handleChange}
-                  className="mt-1 h-5 w-5 accent-yellow-400"
-                />
-                <span className="text-sm sm:text-base text-white/90">
-                  I confirm that all details provided are accurate.
-                </span>
-              </label>
-
-              <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3">
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="bg-green-800 text-yellow-400 font-bold px-6 py-3 rounded-xl
-      disabled:opacity-60 disabled:cursor-not-allowed
-      hover:bg-green-600 hover:text-white transition"
-                >
-                  {sending ? "Submitting..." : "Submit Registration"}
-                </button>
-
-                {submitError && (
-                  <p className="text-red-500 text-sm mt-3">{submitError}</p>
-                )}
-
-                <p className="text-xs text-white/70">
-                  By submitting, you agree the information is correct.
-                </p>
+                <div className="w-full md:w-auto">
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="w-full md:w-auto bg-green-500 text-white font-black px-8 sm:px-12 py-4 sm:py-5 rounded-2xl shadow-xl shadow-green-500/20 hover:bg-green-400 hover:scale-[1.02] active:scale-95 transition-all text-sm sm:text-base uppercase tracking-widest flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {sending ? "SUBMITTING..." : "FINALIZE REGISTRATION"}
+                    {!sending && (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
+
+              {submitError && (
+                <div className="mt-6 sm:mt-8 p-4 rounded-xl bg-red-400/10 border border-red-400/20 text-red-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-center animate-in fade-in slide-in-from-top-2">
+                  {submitError}
+                </div>
+              )}
+
+              {submitSuccess && (
+                <div className="mt-6 sm:mt-8 p-4 rounded-xl bg-green-400/10 border border-green-400/20 text-green-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-center animate-in fade-in slide-in-from-top-2">
+                  {submitSuccess}
+                </div>
+              )}
             </div>
-          </Card>
+          </div>
         </form>
+
+        <div className="mt-12 sm:mt-16 flex items-center justify-center gap-4 py-8 border-t border-white/5">
+          <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">Dynamite Opens Excellence 2026</p>
+        </div>
       </div>
     </section>
   );

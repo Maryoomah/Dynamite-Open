@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth !important;
+  font-family: "Outfit", sans-serif;
+}
+
+body {
+  /* @apply !min-h-screen;
+  background: rgba(64, 64, 64, 0.9); */
+
+
+  @apply  !min-h-screen;
+  background: rgb(22, 22, 26);
+  background: linear-gradient(45deg, rgb(0, 0, 0) 7%, rgba(16,14,31,0.9752275910364145) 86%, rgb(192, 197, 199) 100%, rgb(194, 214, 223) 100%);
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/* Customize the scrollbar track */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Customize the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary rounded-md;
+}
+
+/* Customize the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary !cursor-pointer;
+}
+
+/* Customize the scrollbar corner */
+::-webkit-scrollbar-corner {
+  background-color: #f0f0f0;
+}
+
+.glossy {
+  background: rgba(218, 159, 70, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(218, 159, 70, 0.3);
+}
+
+.register-btn a,
+.payment button {
+  @apply !bg-secondary hover:!bg-white shadow-secondary shadow-lg rounded-tl-lg rounded-br-lg !font-bold !text-black !py-2 px-4 !text-lg !uppercase;
+}
+
+.thanks a {
+  @apply !font-bold !text-black !bg-secondary hover:!bg-white shadow-secondary shadow-lg rounded-tl-lg rounded-br-lg !text-center !py-2 px-4 !text-lg !uppercase;
+}
+
+/* loader */
+.blur {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+#tsparticles canvas {
+  background-color: transparent !important;
+}
+
+.gallery_btn {
+  @apply bg-primary hover:bg-white font-semibold mx-0 lg:mx-auto text-secondary hover:text-primary rounded-md py-2 px-5 block w-64 lg:w-96;
+}
+
+.slick-slider .slick-track {
+  @apply lg:flex justify-around items-center !gap-6 lg:space-x-4;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  @apply lg:!text-3xl !text-black;
+}
+
+.slick-prev {
+  @apply lg:!-left-9;
+}

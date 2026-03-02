@@ -1,0 +1,7 @@
+.gallery_bg {
+    background: rgba(5, 9, 34, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+}

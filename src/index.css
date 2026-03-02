@@ -1,1 +1,35 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;700;800;900&family=DM+Sans:wght@400;500;700;800;900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-catamaran: "Catamaran", sans-serif;
+}
+
+:root {
+  font-family: var(--font-dm-sans) !important;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: var(--font-dm-sans) !important;
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-catamaran {
+  font-family: var(--font-catamaran) !important;
+}
+
+button, 
+a, 
+select, 
+input[type="checkbox"], 
+input[type="radio"], 
+.cursor-pointer {
+  cursor: pointer !important;
+}
