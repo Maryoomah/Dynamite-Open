@@ -11,16 +11,19 @@ export default function Participants() {
 
   const [activeTab, setActiveTab] = useState("Main Event");
 
-  const loadData = (showLoading = false) => {
+  const loadData = async (showLoading = false) => {
     if (showLoading) setIsLoading(true);
     else setIsRefreshing(true);
 
-    // Simulate network delay for first load/refresh
-    setTimeout(() => {
-        setParticipants(participantService.getParticipants());
+    try {
+        const data = await participantService.getParticipants();
+        setParticipants(data);
+    } catch (error) {
+        console.error("Failed to load participants:", error);
+    } finally {
         setIsLoading(false);
         setIsRefreshing(false);
-    }, 800);
+    }
   };
 
   useEffect(() => {

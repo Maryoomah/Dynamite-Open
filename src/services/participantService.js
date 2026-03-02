@@ -1,83 +1,96 @@
-import CryptoJS from 'crypto-js';
+import { initializeApp } from 'firebase/app';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 
-const INITIAL_DATA = [];
-
-// Storage Configuration from Environment
-const STORAGE_KEY = import.meta.env.VITE_STORAGE_KEY || '_dx_p_v1_sync';
-const SECRET_KEY = import.meta.env.VITE_SECRET_KEY || 'fallback-secure-key';
-
-const encryptMode = (data) => {
-  return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-const decryptMode = (ciphertext) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  } catch (error) {
-    console.error('Decryption failed:', error);
-    return null;
-  }
-};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const COLLECTION_NAME = 'participants';
 
 export const participantService = {
   getFee: (category, subCategory) => {
     if (category === 'School Registration') return 0;
-    if (
-      subCategory.toLowerCase().includes('student') ||
-      subCategory.toLowerCase().includes('female')
-    )
+
+    // Ensure "Non-Student Male" doesn't falsely return true for includes('student')
+    if (subCategory === 'Student' || subCategory === 'Non-Student Female') {
       return 10000;
+    }
     return 15000;
   },
-  getParticipants: () => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const decrypted = decryptMode(saved);
-      if (decrypted) return decrypted;
+
+  getParticipants: async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
+      const participants = [];
+      querySnapshot.forEach((doc) => {
+        participants.push({ id: doc.id, ...doc.data() });
+      });
+      return participants;
+    } catch (error) {
+      console.error('Error fetching participants:', error);
+      return [];
     }
-
-    // Fallback/First run: Encrypt initial data and save
-    const encryptedInitial = encryptMode(INITIAL_DATA);
-    localStorage.setItem(STORAGE_KEY, encryptedInitial);
-    return INITIAL_DATA;
   },
 
-  saveParticipants: (data) => {
-    const encrypted = encryptMode(data);
-    localStorage.setItem(STORAGE_KEY, encrypted);
+  addParticipant: async (participant) => {
+    try {
+      const participantData = {
+        ...participant,
+        registrationDate: new Date().toISOString(),
+      };
+      const docRef = await addDoc(
+        collection(db, COLLECTION_NAME),
+        participantData,
+      );
+      return { id: docRef.id, ...participantData };
+    } catch (error) {
+      console.error('Error adding participant:', error);
+      throw error;
+    }
   },
 
-  addParticipant: (participant) => {
-    const data = participantService.getParticipants();
-    const newParticipant = {
-      ...participant,
-      id: Date.now().toString(),
-      registrationDate: new Date().toISOString(),
-    };
-    const updated = [...data, newParticipant];
-    participantService.saveParticipants(updated);
-    return updated;
+  updateParticipant: async (id, updatedFields) => {
+    try {
+      const docRef = doc(db, COLLECTION_NAME, id);
+      await updateDoc(docRef, updatedFields);
+      return true;
+    } catch (error) {
+      console.error('Error updating participant:', error);
+      throw error;
+    }
   },
 
-  updateParticipant: (id, updatedFields) => {
-    const data = participantService.getParticipants();
-    const updated = data.map((p) =>
-      p.id === id ? { ...p, ...updatedFields } : p,
-    );
-    participantService.saveParticipants(updated);
-    return updated;
-  },
-
-  deleteParticipant: (id) => {
-    const data = participantService.getParticipants();
-    const updated = data.filter((p) => p.id !== id);
-    participantService.saveParticipants(updated);
-    return updated;
+  deleteParticipant: async (id) => {
+    try {
+      const docRef = doc(db, COLLECTION_NAME, id);
+      await deleteDoc(docRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting participant:', error);
+      throw error;
+    }
   },
 
   verifyAdminCode: (code) => {
-    // Code from Environment
     const ADMIN_CODE = import.meta.env.VITE_ADMIN_CODE || 'J4YU-6AQ-K5L2';
     return code.toUpperCase() === ADMIN_CODE;
   },

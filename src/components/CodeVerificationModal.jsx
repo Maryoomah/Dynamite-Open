@@ -6,9 +6,9 @@ export default function CodeVerificationModal({ isOpen, onClose, onVerify, actio
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const isValid = onVerify(code);
+    const isValid = await onVerify(code);
     if (isValid) {
       setCode("");
       setError(false);

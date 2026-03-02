@@ -19,16 +19,19 @@ export default function AdminDashboard() {
 
   const [activeTab, setActiveTab] = useState("Main Event");
 
-  const loadData = (showLoading = false) => {
+  const loadData = async (showLoading = false) => {
     if (showLoading) setIsLoading(true);
     else setIsRefreshing(true);
 
-    // Simulate network delay for first load/refresh
-    setTimeout(() => {
-        setParticipants(participantService.getParticipants());
+    try {
+        const data = await participantService.getParticipants();
+        setParticipants(data);
+    } catch (error) {
+        console.error("Failed to load participants:", error);
+    } finally {
         setIsLoading(false);
         setIsRefreshing(false);
-    }, 800);
+    }
   };
 
   useEffect(() => {
@@ -57,43 +60,51 @@ export default function AdminDashboard() {
     setIsVerifyModalOpen(true);
   };
 
-  const handleVerify = (code) => {
+  const handleVerify = async (code) => {
     if (participantService.verifyAdminCode(code)) {
       const { type, data } = pendingAction;
       
-      if (type === "DELETE") {
-        participantService.deleteParticipant(data);
-        refreshData();
-        setIsVerifyModalOpen(false);
-        setPendingAction(null);
-      } else if (type === "UPDATE_STATUS") {
-        participantService.updateParticipant(data.id, { paymentStatus: data.status });
-        refreshData();
-        setIsVerifyModalOpen(false);
-        setPendingAction(null);
-      } else if (type === "ADD") {
-        setIsVerifyModalOpen(false);
-        setSelectedParticipant(null);
-        setIsParticipantModalOpen(true);
-      } else if (type === "EDIT") {
-        setIsVerifyModalOpen(false);
-        setSelectedParticipant(data);
-        setIsParticipantModalOpen(true);
+      try {
+        if (type === "DELETE") {
+          await participantService.deleteParticipant(data);
+          refreshData();
+          setIsVerifyModalOpen(false);
+          setPendingAction(null);
+        } else if (type === "UPDATE_STATUS") {
+          await participantService.updateParticipant(data.id, { paymentStatus: data.status });
+          refreshData();
+          setIsVerifyModalOpen(false);
+          setPendingAction(null);
+        } else if (type === "ADD") {
+          setIsVerifyModalOpen(false);
+          setSelectedParticipant(null);
+          setIsParticipantModalOpen(true);
+        } else if (type === "EDIT") {
+          setIsVerifyModalOpen(false);
+          setSelectedParticipant(data);
+          setIsParticipantModalOpen(true);
+        }
+      } catch (error) {
+          console.error("Action failed", error);
       }
       return true;
     }
     return false;
   };
 
-  const handleSaveParticipant = (formData) => {
-    if (selectedParticipant) {
-      participantService.updateParticipant(selectedParticipant.id, formData);
-    } else {
-      participantService.addParticipant(formData);
+  const handleSaveParticipant = async (formData) => {
+    try {
+      if (selectedParticipant) {
+        await participantService.updateParticipant(selectedParticipant.id, formData);
+      } else {
+        await participantService.addParticipant(formData);
+      }
+      setIsParticipantModalOpen(false);
+      setPendingAction(null);
+      refreshData();
+    } catch (error) {
+      console.error("Save failed", error);
     }
-    setIsParticipantModalOpen(false);
-    setPendingAction(null);
-    refreshData();
   };
 
   const filteredParticipants = participants.filter(p => p.category === activeTab);
