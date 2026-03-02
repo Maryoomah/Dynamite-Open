@@ -3,25 +3,25 @@ import { FaFlagCheckered, FaUsers, FaSchool, FaTrophy } from "react-icons/fa";
 
 const items = [
   {
-    year: "2022",
+    year: "2018",
     title: "The First Spark",
     text: "Dynamite Opens launched its first Scrabble tournament with a focus on fair play and community.",
     icon: FaFlagCheckered,
   },
   {
-    year: "2023",
+    year: "2019",
     title: "Growth & Community",
     text: "Participation grew as more players joined across categories and the event gained recognition.",
     icon: FaUsers,
   },
   {
-    year: "2024",
+    year: "2021",
     title: "Schools & Inclusion",
     text: "Student and school-focused activities were introduced to support youth involvement and inclusion.",
     icon: FaSchool,
   },
   {
-    year: "2025",
+    year: "2023",
     title: "Bigger Wins",
     text: "Prizes and partnerships expanded, delivering a stronger tournament experience for everyone.",
     icon: FaTrophy,

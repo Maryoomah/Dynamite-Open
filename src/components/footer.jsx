@@ -8,14 +8,15 @@ function Footer() {
         {" "}
         {/* Brand */}
         <div>
-       <img
+          <img
             src={`${import.meta.env.BASE_URL}images/logowhite.png`}
             alt="logo"
             className="w-20"
           />
           <p className="mt-3 text-white/70">
-            Nigeria’s premier Scrabble tournament bringing players together to
-            compete, connect and win big.
+            Nigeria’s premier Scrabble platform dedicated to nurturing youth
+            talent, empowering upcoming players, and creating opportunities to
+            compete, connect, and grow.
           </p>
         </div>
         {/* Links */}
@@ -26,9 +27,7 @@ function Footer() {
 
           <ul className=" text-white/80">
             <li className="hover:text-yellow-300 cursor-pointer transition">
-              <Link to="/" >
-                Home
-              </Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="hover:text-yellow-300 cursor-pointer transition">
               <Link to="/about">About</Link>

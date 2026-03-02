@@ -11,17 +11,22 @@ const categories = [
   {
     title: "Dynamite Opens – Main Event",
     badge: "1199-0",
+    check: true,
     fee: "₦15,000",
     notes: ["Scrabble rating bracket: 0–1199"],
     register: true,
     path: "/register/main-event",
+    rating: "",
   },
   {
     title: "Student / Female",
+    badge: "1199-0",
+    check: true,
     fee: "₦10,000",
     notes: ["For students and female participants"],
     register: true,
     path: "/register/main-event",
+    rating: "",
   },
   {
     title: "Inter-Secondary School",
@@ -81,8 +86,9 @@ function Home() {
               </div>
 
               <p className="text-gray-600 text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                The ultimate battle of words. Join Nigeria's elite players in an 
-                explosive multi-division championship.
+                The ultimate battle of words. A multi-division championship
+                designed for beginners, intermediates, and rising stars to
+                compete and grow.
               </p>
 
               {/* Prize Highlight */}
@@ -92,7 +98,9 @@ function Home() {
                     <FaTrophy className="text-yellow-400 text-2xl sm:text-3xl animate-pulse" />
                   </div>
                   <div className="text-left">
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-green-800/60 leading-none mb-1">Total Prize Pool</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest text-green-800/60 leading-none mb-1">
+                      Total Prize Pool
+                    </p>
                     <span className="text-2xl sm:text-3xl font-black text-green-950 leading-none">
                       ₦1,000,000
                     </span>
@@ -111,8 +119,12 @@ function Home() {
                         <FaCalendar size={18} />
                       </div>
                       <div>
-                        <p className="text-[10px] uppercase font-bold text-green-800/50 tracking-wider">Date</p>
-                        <p className="text-gray-900 font-bold">16–18 April, 2026</p>
+                        <p className="text-[10px] uppercase font-bold text-green-800/50 tracking-wider">
+                          Date
+                        </p>
+                        <p className="text-gray-900 font-bold">
+                          16–18 April, 2026
+                        </p>
                       </div>
                     </div>
 
@@ -121,8 +133,12 @@ function Home() {
                         <FaLocationArrow size={18} />
                       </div>
                       <div>
-                        <p className="text-[10px] uppercase font-bold text-yellow-800/50 tracking-wider">Location</p>
-                        <p className="text-gray-900 font-bold">Lagos, Nigeria</p>
+                        <p className="text-[10px] uppercase font-bold text-yellow-800/50 tracking-wider">
+                          Location
+                        </p>
+                        <p className="text-gray-900 font-bold">
+                          Agege, Lagos, Nigeria
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -173,7 +189,8 @@ function Home() {
             </h2>
             <div className="h-1.5 w-24 bg-linear-to-r from-yellow-500 to-amber-600 mx-auto rounded-full" />
             <p className="text-green-100/60 max-w-2xl mx-auto font-medium text-lg">
-              Choose your category and join the most anticipated scrabble event of the year.
+              Choose your category and join the most anticipated scrabble event
+              of the year.
             </p>
           </div>
 
@@ -201,36 +218,58 @@ function Home() {
                     </div>
 
                     <div className="bg-white/5 p-4 rounded-3xl border border-white/10 text-center min-w-[120px]">
-                      <p className="text-[10px] uppercase font-bold text-yellow-500/60 tracking-widest mb-1">Entry Fee</p>
+                      <p className="text-[10px] uppercase font-bold text-yellow-500/60 tracking-widest mb-1">
+                        Entry Fee
+                      </p>
                       <p className="text-2xl font-black text-white">{c.fee}</p>
                     </div>
                   </div>
 
-                  <div className="grow">
+                  <div className="flex items-center gap-8">
                     <ul className="space-y-4">
                       {c.notes.map((n, i) => (
-                        <li key={i} className="flex items-start gap-3 text-green-100/70 font-medium leading-relaxed">
+                        <li
+                          key={i}
+                          className="flex items-start gap-3 text-green-100/70 font-medium leading-relaxed"
+                        >
                           <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-yellow-500 shrink-0 shadow-[0_0_10px_rgba(234,179,8,0.5)]" />
                           {n}
                         </li>
                       ))}
                     </ul>
+                    {c.check && (
+                      <a
+                        href="/documents/dynamiteopens_eligibilitylist.pdf"
+                        target="_blank" rel="non-opener noreferrer"
+className="text-yellow-400 underline text-sm hover:text-white"                      >Check Rating</a>
+                    )}
                   </div>
 
                   {c.register && (
                     <Link
-                      to={c.path}
+                      to={c.path}s
                       className="mt-10 inline-flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-[#0a2e1f] font-black px-8 py-5 rounded-2xl transition-all active:scale-95 shadow-[0_10px_30px_rgba(234,179,8,0.2)]"
                     >
                       REGISTER NOW
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                     </Link>
                   )}
                   {!c.register && (
                     <div className="mt-10 py-5 text-center bg-white/5 rounded-2xl border border-white/5">
-                      <p className="text-white/40 font-bold uppercase tracking-widest text-sm">Invitational Only</p>
+                      <p className="text-white/40 font-bold uppercase tracking-widest text-sm">
+                        Invitational Only
+                      </p>
                     </div>
                   )}
                 </div>
