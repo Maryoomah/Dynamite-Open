@@ -38,6 +38,7 @@ const categories = [
     ],
     register: true,
     path: "/register/school",
+    guide: true,
   },
   {
     title: "Celebrity Doubles",
@@ -225,7 +226,7 @@ function Home() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-8">
+                  <div className="flex sm:block items-center gap-8">
                     <ul className="space-y-4">
                       {c.notes.map((n, i) => (
                         <li
@@ -240,14 +241,42 @@ function Home() {
                     {c.check && (
                       <a
                         href="/documents/dynamiteopens_eligibilitylist.pdf"
-                        target="_blank" rel="non-opener noreferrer"
-className="text-yellow-400 underline text-sm hover:text-white"                      >Check Rating</a>
+                        target="_blank"
+                        rel="non-opener noreferrer"
+                        className="text-yellow-400 underline text-sm hover:text-white"
+                      >
+                        Check Rating
+                      </a>
                     )}
                   </div>
-
+                  <div className="space-x-8 mt-6">
+                    {c.guide && (
+                      <a
+                        href="/documents/DynamiteOpens-SchoolGuide.pdf"
+                        download
+                        target="_blank"
+                        rel="non-opener noreferrer"
+                        className="text-yellow-400 underline text-sm hover:text-white"
+                      >
+                        download school guide
+                      </a>
+                    )}
+                    {c.guide && (
+                      <a
+                        href="/documents/Dynamite Spelling Bee Word List.pdf "
+                        download
+                        target="_blank"
+                        rel="non-opener noreferrer"
+                        className="text-yellow-400 underline text-sm hover:text-white"
+                      >
+                        download speliing bee study guide
+                      </a>
+                    )}
+                  </div>
                   {c.register && (
                     <Link
-                      to={c.path}s
+                      to={c.path}
+                      s
                       className="mt-10 inline-flex items-center justify-center gap-3 bg-yellow-500 hover:bg-yellow-400 text-[#0a2e1f] font-black px-8 py-5 rounded-2xl transition-all active:scale-95 shadow-[0_10px_30px_rgba(234,179,8,0.2)]"
                     >
                       REGISTER NOW
