@@ -6,6 +6,7 @@ import { participantService } from "../services/participantService";
 
 export default function AdminParticipantModal({ isOpen, onClose, onSave, participant }) {
   const [regType, setRegType] = useState("Main Event");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm();
   
   const selectedCategory = watch("category");
@@ -75,14 +76,38 @@ export default function AdminParticipantModal({ isOpen, onClose, onSave, partici
             </button>
           </div>
 
-          <form onSubmit={handleSubmit((data) => onSave({...data, category: regType === "School Registration" ? "School Registration" : data.category}))} className="p-8 space-y-6">
+          <form onSubmit={handleSubmit(
+            async (data) => {
+              setIsSubmitting(true);
+              try {
+                const sanitizedData = {
+                  ...data,
+                  category: regType === "School Registration" ? "School Registration" : data.category,
+                  rating: isNaN(data.rating) || data.rating === "" ? 0 : Number(data.rating),
+                  amount: isNaN(data.amount) || data.amount === "" ? 0 : Number(data.amount)
+                };
+                await onSave(sanitizedData);
+              } finally {
+                setIsSubmitting(false);
+              }
+            },
+            (errs) => console.error("Validation failed:", errs)
+          )} className="p-8 space-y-6">
+            {Object.keys(errors).length > 0 && (
+              <div className="bg-red-50 text-red-500 p-4 rounded-xl text-xs font-bold">
+                Please fill in all required fields correctly. (Missing: {Object.keys(errors).join(', ')})
+              </div>
+            )}
             {!participant && (
                 <div className="flex p-1 bg-gray-100 rounded-2xl">
                     {["Main Event", "School Registration"].map((t) => (
                         <button
                             key={t}
                             type="button"
-                            onClick={() => setRegType(t)}
+                            onClick={() => {
+                              setRegType(t);
+                              reset();
+                            }}
                             className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all cursor-pointer ${regType === t ? 'bg-white text-green-950 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                         >
                             {t}
@@ -251,10 +276,16 @@ export default function AdminParticipantModal({ isOpen, onClose, onSave, partici
               </button>
               <button
                 type="submit"
-                className="flex-2 py-4 rounded-2xl bg-green-950 text-yellow-500 font-black hover:bg-green-900 transition-all shadow-xl shadow-green-950/20 flex items-center justify-center gap-3 cursor-pointer"
+                disabled={isSubmitting}
+                className="flex-2 py-4 rounded-2xl bg-green-950 text-yellow-500 font-black hover:bg-green-900 transition-all shadow-xl shadow-green-950/20 flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaSave />
-                {participant ? "Save Changes" : "Create Record"}
+                {isSubmitting ? (
+                  <svg className="animate-spin h-5 w-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : <FaSave />}
+                {isSubmitting ? "Saving..." : participant ? "Save Changes" : "Create Record"}
               </button>
             </div>
           </form>

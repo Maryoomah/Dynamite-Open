@@ -104,6 +104,7 @@ export default function AdminDashboard() {
       refreshData();
     } catch (error) {
       console.error("Save failed", error);
+      alert("Failed to save record: " + error.message);
     }
   };
 
