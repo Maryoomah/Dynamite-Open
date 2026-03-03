@@ -202,6 +202,7 @@ export default function AdminParticipantModal({ isOpen, onClose, onSave, partici
                       {...register("subCategory")}
                       className="w-full px-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-600/5 focus:bg-white transition-all font-bold text-green-950 cursor-pointer"
                     >
+                      <option value="">Select school level</option>
                       <option value="Primary">Primary</option>
                       <option value="Secondary">Secondary</option>
                     </select>
